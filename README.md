@@ -1,2 +1,2 @@
 # ByteStock
-ByteStock-a functional software for small businesses to efficiently manage their inventory and can also calculate GST bills
+ByteStock-a functional software for small businesses to efficiently manage their inventory and can also calculate GST bills with a user freindly Chatbot 
