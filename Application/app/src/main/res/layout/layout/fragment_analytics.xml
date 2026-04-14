@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:background="?attr/colorPrimary"
+            android:padding="12dp" android:gravity="center_vertical">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:text="📊 Sales Analytics" android:textColor="@color/white"
+                android:textSize="18sp" android:textStyle="bold"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnRefresh"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="↻" style="@style/Widget.Material3.Button.OutlinedButton"
+                android:textColor="@color/white" app:strokeColor="@color/white"/>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ProgressBar android:id="@+id/progressBar" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_gravity="center"
+        android:visibility="gone" app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <androidx.core.widget.NestedScrollView android:id="@+id/scrollContent"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="12dp">
+
+            <!-- Time window chips -->
+            <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:scrollbars="none" android:layout_marginBottom="12dp">
+                <com.google.android.material.chip.ChipGroup android:id="@+id/chipGroupWindow"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    app:singleSelection="true"/>
+            </HorizontalScrollView>
+
+            <!-- Headline stats -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_marginBottom="12dp">
+
+                <com.google.android.material.card.MaterialCardView android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="6dp"
+                    app:cardCornerRadius="12dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:padding="12dp" android:gravity="center">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💰 Revenue"/>
+                        <TextView android:id="@+id/tvTotalRevenue" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:text="₹0"
+                            android:textStyle="bold" android:textColor="@color/colorPrimary" android:textSize="16sp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginHorizontal="3dp"
+                    app:cardCornerRadius="12dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:padding="12dp" android:gravity="center">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📦 Units"/>
+                        <TextView android:id="@+id/tvTotalUnits" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:text="0" android:textStyle="bold" android:textSize="16sp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="6dp"
+                    app:cardCornerRadius="12dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:padding="12dp" android:gravity="center">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🧾 Bills"/>
+                        <TextView android:id="@+id/tvTotalBills" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:text="0" android:textStyle="bold" android:textSize="16sp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Daily chart -->
+            <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginBottom="12dp" app:cardCornerRadius="12dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="📅 Daily Sales" android:textStyle="bold" android:layout_marginBottom="8dp"/>
+                    <com.inventory.manager.ui.analytics.BarChartView android:id="@+id/barChartDaily"
+                        android:layout_width="match_parent" android:layout_height="160dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Weekly chart -->
+            <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginBottom="12dp" app:cardCornerRadius="12dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="📆 Weekly Sales" android:textStyle="bold" android:layout_marginBottom="8dp"/>
+                    <com.inventory.manager.ui.analytics.BarChartView android:id="@+id/barChartWeekly"
+                        android:layout_width="match_parent" android:layout_height="160dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Monthly chart -->
+            <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginBottom="12dp" app:cardCornerRadius="12dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="🗓️ Monthly Sales" android:textStyle="bold" android:layout_marginBottom="8dp"/>
+                    <com.inventory.manager.ui.analytics.BarChartView android:id="@+id/barChartMonthly"
+                        android:layout_width="match_parent" android:layout_height="160dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Top products -->
+            <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginBottom="12dp" app:cardCornerRadius="12dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="🔥 Top Selling Products" android:textStyle="bold" android:layout_marginBottom="8dp"/>
+                    <TextView android:id="@+id/tvNoTopProducts" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="No sales data yet — create some bills!"
+                        android:textColor="#888" android:visibility="gone"/>
+                    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvTopProducts"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Slow/dead stock -->
+            <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginBottom="12dp" app:cardCornerRadius="12dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="📉 Slow / Dead Stock — Restock Suggestions" android:textStyle="bold" android:layout_marginBottom="8dp"/>
+                    <TextView android:id="@+id/tvNoSlowProducts" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="All products are selling well! 🎉"
+                        android:textColor="#888" android:visibility="gone"/>
+                    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvSlowProducts"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Category breakdown -->
+            <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginBottom="24dp" app:cardCornerRadius="12dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="🗂️ Revenue by Category" android:textStyle="bold" android:layout_marginBottom="8dp"/>
+                    <TextView android:id="@+id/tvNoCategoryData" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="No data yet."
+                        android:textColor="#888" android:visibility="gone"/>
+                    <LinearLayout android:id="@+id/llCategories" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:orientation="vertical"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

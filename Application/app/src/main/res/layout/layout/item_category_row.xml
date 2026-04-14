@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="horizontal" android:gravity="center_vertical" android:paddingVertical="6dp">
+    <View android:id="@+id/viewColor" android:layout_width="12dp" android:layout_height="12dp"
+        android:background="@drawable/shape_circle"/>
+    <TextView android:id="@+id/tvCatName" android:layout_width="0dp"
+        android:layout_height="wrap_content" android:layout_weight="1"
+        android:layout_marginStart="10dp" android:textSize="13sp" android:textColor="@color/textPrimary"/>
+    <TextView android:id="@+id/tvCatPct" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:textSize="13sp"
+        android:textStyle="bold" android:textColor="@color/colorPrimary"/>
+</LinearLayout>
